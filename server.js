@@ -20,7 +20,10 @@ const io = new Server(server,{
 
 io.on('connection', (socket)=>{
     console.log("Connection is established")
-
+    socket.on('new_message', (message)=>{
+        // broadcacst this message to all the clients.
+        socket.broadcast.emit('broadcast_message', message);
+    })
     socket.on('disconnect', ()=>{
         console.log("Connection is disconnected");
     })
