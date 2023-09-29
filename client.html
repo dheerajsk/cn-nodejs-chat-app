@@ -41,9 +41,18 @@
                 const messageElement = document.createElement("div");
                 messageElement.innerText = username + ": " + message;
                 messageList.appendChild(messageElement);
-
                 messageInput.value = "";
             }
+        })
+
+        // Display messages on UI.
+
+        socket.on('load_messages', (messages) => {
+            messages.forEach(message => {
+                const messgeElement = document.createElement("div");
+                messgeElement.innerText = new Date(message.timestamp).toDateString() + " - " + message.username + ":" + message.message;
+                messageList.appendChild(messgeElement);
+            })
         })
 
         // Listen for broadcast message, and add it to the list.
